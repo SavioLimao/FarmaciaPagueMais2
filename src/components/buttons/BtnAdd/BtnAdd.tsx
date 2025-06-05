@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Modal from "../../Modal/Modal";
 export default function BtnAdd() {
   const [showModal, setShowModal] = useState(false);
   const [Name, setName] = useState("");
@@ -17,17 +17,23 @@ export default function BtnAdd() {
   };
   const onClickHandlerClose = () => {
     if (Name || Price || Desc) {
-     if(!window.confirm("Se fechar agora perderá as os dados já inseridos"))
-      return }
-      ClearF()
-      setShowModal(false)
+      if (!window.confirm("Se fechar agora perderá as os dados já inseridos"))
+        return;
+    }
+    ClearF();
+    setShowModal(false);
   };
 
-  const onSubmmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    console.log(`${Name} ${Price} ${Desc}`);
-    setShowModal(false);
-    ClearF();
+    if (Name && Price) {
+      console.log(`${Name} ${Price} ${Desc || 'Ainda sem descrição'}`);
+      setShowModal(false);
+      ClearF();
+    }
+    else {
+      window.alert("Os campos Nome e Preço são obrigatórios.");
+    }
   };
 
   function getName(e) {
@@ -52,64 +58,17 @@ export default function BtnAdd() {
       </button>
 
       {showModal ? (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-blue-900 rounded-lg p-10">
-            <h2 className="text-xl font-bold mb-4 text-white">
-              Adicionar Produto
-            </h2>
-            <form action="submit" className="flex flex-col items-start">
-              <label htmlFor="" id="nomemodal" className="font-normal">
-                Nome
-              </label>
-              <input
-                className="my-2 border-2 rounded text-black font-light"
-                type="text"
-                id="nomemodal"
-                onChange={getName}
-                value={Name}
-              ></input>
-              <label htmlFor="" id="precomodal" className="font-normal">
-                Preço
-              </label>
-              <input
-                className="my-2 border-2 rounded text-black font-light"
-                type="number"
-                id="precomodal"
-                onChange={getPrice}
-                value={Price}
-              ></input>
-              <label htmlFor="" id="descmodal" className="font-normal">
-                Descrição
-              </label>
-              <textarea
-                className="my-2 border-2 rounded text-black font-light text-base"
-                type="text-box"
-                id="descmodal"
-                rows={5}
-                cols={40}
-                maxLength={234}
-                onChange={getDesc}
-                value={Desc}
-              ></textarea>
-
-              <button
-                onClick={onSubmmit}
-                type="submmit"
-                className="bg-white text-blue-900 px-4 py-2 rounded"
-              >
-                salvar
-              </button>
-
-              <button
-              type="button"
-                onClick={onClickHandlerClose}
-                className="bg-red-600 text-white px-4 py-2 rounded"
-              >
-                Cancelar
-              </button>
-            </form>
-          </div>
-        </div>
+        <Modal
+          getName={getName}
+          getPrice={getPrice}
+          getDesc={getDesc}
+          Name={Name}
+          Price={Price}
+          Desc={Desc}
+          onSubmit={onSubmit}
+          onClickHandlerClose={onClickHandlerClose}
+          onc
+        />
       ) : null}
     </>
   );
