@@ -26,6 +26,17 @@ export default function Modal(props) {
             value={props.Price}
             required
           ></input>
+          <label htmlFor="" id="precomodal" className="font-normal">
+            Estoque
+          </label>
+          <input
+            className="my-2 border-2 rounded text-black font-light"
+            type="number"
+            id="precomodal"
+            onChange={props.getStock}
+            value={props.Stock}
+            required
+          ></input>
           <label htmlFor="" id="descmodal" className="font-normal">
             Descrição
           </label>

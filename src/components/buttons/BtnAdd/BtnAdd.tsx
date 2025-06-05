@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Modal from "../../Modal/Modal";
-export default function BtnAdd() {
+
+export default function BtnAdd(props) {
   const [showModal, setShowModal] = useState(false);
   const [Name, setName] = useState("");
   const [Price, setPrice] = useState("");
+  const [Stock, setStock] = useState("");
   const [Desc, setDesc] = useState("");
 
   const ClearF = () => {
@@ -27,11 +29,21 @@ export default function BtnAdd() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (Name && Price) {
-      console.log(`${Name} ${Price} ${Desc || 'Ainda sem descrição'}`);
+      const novoProduto = {
+        id: Date.now(),
+        nome: Name,
+        preco: Number(Price),
+        estoque: Number(Stock) || 0,
+        descricao: Desc || "Ainda sem descrição",
+      };
+
+      const produtosSalvos = JSON.parse(localStorage.getItem("produtos")) || [];
+      produtosSalvos.push(novoProduto);
+      localStorage.setItem("produtos", JSON.stringify(produtosSalvos));
+      props.onSubmit(novoProduto);
       setShowModal(false);
       ClearF();
-    }
-    else {
+    } else {
       window.alert("Os campos Nome e Preço são obrigatórios.");
     }
   };
@@ -43,9 +55,15 @@ export default function BtnAdd() {
   function getPrice(e) {
     setPrice(e.target.value);
   }
+
+  function getStock(e) {
+    setStock(e.target.value);
+  }
+
   function getDesc(e) {
     setDesc(e.target.value);
   }
+
 
   return (
     <>
@@ -61,9 +79,11 @@ export default function BtnAdd() {
         <Modal
           getName={getName}
           getPrice={getPrice}
+          getStock={getStock}
           getDesc={getDesc}
           Name={Name}
           Price={Price}
+          Stock={Stock}
           Desc={Desc}
           onSubmit={onSubmit}
           onClickHandlerClose={onClickHandlerClose}
