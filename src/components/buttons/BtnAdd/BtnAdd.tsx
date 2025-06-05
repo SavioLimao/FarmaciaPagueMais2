@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function BtnAdd() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [Name, setName] = useState("");
   const [Price, setPrice] = useState("");
   const [Desc, setDesc] = useState("");
@@ -17,12 +17,10 @@ export default function BtnAdd() {
   };
   const onClickHandlerClose = () => {
     if (Name || Price || Desc) {
-      window.alert("tete")
-      return
-    } else {
+     if(!window.confirm("Se fechar agora perderá as os dados já inseridos"))
+      return }
       ClearF()
       setShowModal(false)
-    }
   };
 
   const onSubmmit = (e) => {
