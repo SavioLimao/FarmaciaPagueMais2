@@ -1,4 +1,7 @@
+import { TrashIcon } from "@heroicons/react/16/solid";
+import { useState } from "react";
 export default function Modal(props) {
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-blue-900 rounded-lg p-10">
@@ -66,6 +69,19 @@ export default function Modal(props) {
           >
             Cancelar
           </button>
+          <div>
+            {props.Dell && (
+              <button
+                type="button"
+                onClick={props.onClickHandlerClose}
+                className="bg-red-800 text-white px-4 py-2 rounded"
+              >
+                <div className="flex gap-2">
+                  Apagar <TrashIcon className="w-6" />
+                </div>
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

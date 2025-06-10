@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BtnAdd from "../buttons/BtnAdd/BtnAdd";
 import produtosJson from "../../assets/produtos.json"
+import EditBTN from "../../components/buttons/EditBTN/EditBTN"
 import {
   PencilSquareIcon,
   Square3Stack3DIcon,
@@ -27,6 +28,7 @@ export default function Table() {
               <th className="p-2">Estoque</th>
               <th className="p-2">Edit</th>
               <th className="p-2">
+                {/* ADD BTN */}
                 <BtnAdd onSubmit={novoProduto} />
               </th>
             </tr>
@@ -42,9 +44,8 @@ export default function Table() {
                 <td className="py-2">{produto.descricao}</td>
                 <td className="py-2">{produto.estoque}</td>
                 <td>
-                  <button className="bg-red-700 p-2 active:bg-red-800 rounded">
-                    <PencilSquareIcon className="w-5 h-5 text-white" />
-                  </button>
+                  {/* Edit BTN */}
+                  <EditBTN />
                 </td>
                 <td>
                   <Square3Stack3DIcon className="w-6 mx-4" />
