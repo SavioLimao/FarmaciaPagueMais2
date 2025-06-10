@@ -11,6 +11,7 @@ export default function BtnAdd(props) {
   const ClearF = () => {
     setName("");
     setPrice("");
+    setStock("")
     setDesc("");
   };
 

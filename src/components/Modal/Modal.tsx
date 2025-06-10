@@ -70,10 +70,10 @@ export default function Modal(props) {
             Cancelar
           </button>
           <div>
-            {props.Dell && (
+            {props.Edit && (
               <button
                 type="button"
-                onClick={props.onClickHandlerClose}
+                onClick={props.onDelete}
                 className="bg-red-800 text-white px-4 py-2 rounded"
               >
                 <div className="flex gap-2">

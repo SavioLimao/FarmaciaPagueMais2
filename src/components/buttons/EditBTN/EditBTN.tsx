@@ -8,9 +8,34 @@ export default function EditBTN(props) {
   const [Desc, setDesc] = useState(props.descricao);
   const [Stock, setStock] = useState(props.estoque);
 
+  const nameUpdate = (e) => {setName(e.target.value)}
+  const priceUpdate = (e) => {setPrice(e.target.value)} 
+  const descUpdate = (e) => {setDesc(e.target.value)}
+  const stockUpdate = (e) => {setStock(e.target.value)}
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    const upDated = {
+      ...props.produto,
+      nome: Name,
+      preco: Number(Price),
+      descricao: Desc,
+      estoque: Number(Stock),
+    };
+    props.onUpdate(upDated);
+    setShowModal(false);
+  };
+
   const onClickHandler = () => {
     setShowModal(true);
   };
+
+  const DeleteHandler = () => {
+    props.onDelete(props.produto.id)
+    setShowModal(false)
+  }
+
+
 
   return (
     <>
@@ -23,17 +48,18 @@ export default function EditBTN(props) {
 
       {ShowModal ? (
         <Modal
-          getName={""}
-          Name={""}
-          getPrice={""}
-          Price={""}
-          getStock={""}
-          Stock={""}
-          getDesc={""}
-          Desc={""}
-          onSubmit={""}
-          onClickHandlerClose={""}
-          Dell={true}
+          getName={nameUpdate}
+          Name={Name}
+          getPrice={priceUpdate}
+          Price={Price}
+          getStock={stockUpdate}
+          Stock={Stock}
+          getDesc={descUpdate}
+          Desc={Desc}
+          onSubmit={handlesubmit}
+          onClickHandlerClose={() => setShowModal(false)}
+          Edit={true}
+          onDelete={DeleteHandler}
         />
       ) : null}
     </>
