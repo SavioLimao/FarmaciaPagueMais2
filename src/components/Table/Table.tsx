@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BtnAdd from "../buttons/BtnAdd/BtnAdd";
 import produtosJson from "../../assets/produtos.json";
 import EditBTN from "../../components/buttons/EditBTN/EditBTN";
@@ -9,15 +9,22 @@ import {
 // import produtos from "../../assets/produtos.json";
 
 export default function Table() {
-  const [produtos, setProdutos] = useState(produtosJson);
+  const [produtos, setProdutos] = useState(() => {
+    const localData = localStorage.getItem("produtos");
+    return localData ? JSON.parse(localData) : produtosJson;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("produtos", JSON.stringify(produtos));
+  }, [produtos]);
 
   const novoProduto = (produto) => {
     setProdutos((produtoInit) => [...produtoInit, produto]);
   };
 
   const deleteProduto = (id) => {
-  setProdutos(produtos.filter(prod => prod.id !== id));
-};
+    setProdutos(produtos.filter((prod) => prod.id !== id));
+  };
 
   return (
     <main className="flex flex-col items-center text-xl mt-20">

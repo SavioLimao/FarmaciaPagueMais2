@@ -8,10 +8,18 @@ export default function EditBTN(props) {
   const [Desc, setDesc] = useState(props.descricao);
   const [Stock, setStock] = useState(props.estoque);
 
-  const nameUpdate = (e) => {setName(e.target.value)}
-  const priceUpdate = (e) => {setPrice(e.target.value)} 
-  const descUpdate = (e) => {setDesc(e.target.value)}
-  const stockUpdate = (e) => {setStock(e.target.value)}
+  const nameUpdate = (e) => {
+    setName(e.target.value);
+  };
+  const priceUpdate = (e) => {
+    setPrice(e.target.value);
+  };
+  const descUpdate = (e) => {
+    setDesc(e.target.value);
+  };
+  const stockUpdate = (e) => {
+    setStock(e.target.value);
+  };
 
   const handlesubmit = (e) => {
     e.preventDefault();
@@ -31,11 +39,14 @@ export default function EditBTN(props) {
   };
 
   const DeleteHandler = () => {
-    props.onDelete(props.produto.id)
-    setShowModal(false)
-  }
+    const checkDell = window.confirm(
+      "Tem certeza que deseja apagar este item?"
+    );
+    if (!checkDell) return;
 
-
+    props.onDelete(props.produto.id);
+    setShowModal(false);
+  };
 
   return (
     <>
